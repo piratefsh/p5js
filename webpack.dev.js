@@ -14,10 +14,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
+                include: path.join(__dirname, 'src/app'),
                 loader: 'babel-loader',
                 options: {
                     presets: ['env']
-                }
+                },
             },
             {
                 test: /\.(scss|css)$/,
@@ -70,5 +71,10 @@ module.exports = {
             template: './index.html',
             inject: true
         })
-    ]
+    ],
+    resolve: {
+        alias: {
+            components: path.join(__dirname, 'src/app/components')
+        }
+    }
 };

@@ -21,7 +21,8 @@
     },
     "homepage": "",
     "dependencies": {
-        "normalize.css": "^8.0.0"
+        "normalize.css": "^8.0.0",
+        "p5": "^0.7.2"
     },
     "devDependencies": {
         "ajv": "^6.3.0",
@@ -33,7 +34,7 @@
         "cssnano": "^3.10.0",
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "favicons-webpack-plugin": "0.0.8",
-        "file-loader": "^1.1.11",
+        "file-loader": "^2.0.0",
         "html-webpack-plugin": "^3.1.0",
         "http-server": "^0.11.1",
         "node-sass": "^4.8.3",
