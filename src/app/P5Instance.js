@@ -2,8 +2,8 @@ import P5 from 'p5';
 import ParametricPatterns from 'components/ParametricPatterns';
 
 const sketch = (p) => {
-  const gridX = 1;
-  const gridY = 1;
+  const gridX = 2;
+  const gridY = 2;
   const canvasSizeX = window.innerWidth;
   const canvasSizeY = window.innerHeight;
   const cellSizeX = Math.ceil(canvasSizeY / gridX);
@@ -12,7 +12,7 @@ const sketch = (p) => {
   const BG_COLOR = [4, 31, 61];
   const MULTI_COLORS = [[[41, 93, 150], [110, 195, 149]]];
   const NUM_LAYERS = MULTI_COLORS.length;
-  const offsetX = (canvasSizeX - canvasSizeY) / 2;
+  const offsetX = (canvasSizeX - canvasSizeY)/2;
   const offsetY = 0;
 
   p.setup = () => {
@@ -32,7 +32,7 @@ const sketch = (p) => {
             seed: n,
             color: MULTI_COLORS[n][0],
             color2: MULTI_COLORS[n][1],
-            numLines: 60,
+            numLines: 40,
             amp: (MULTI_COLORS.length - n) / 2,
           }));
         }

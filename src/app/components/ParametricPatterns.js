@@ -10,13 +10,13 @@ export default class ParametricPatterns {
     this.strokeOpacity = 1;
     this.width = (props.width || this.p5.width) - this.padding;
     this.height = (props.height || this.p5.height) - this.padding;
-    this.speed = 0.01;
+    this.speed = 0.04;
     this.t = 0;
     this.numLines = props.numLines || 80;
     this.color = props.color || [100, 100, 100];
     this.color2 = props.color2 || props.color;
     this.randVar = this.p5.random(0, this.seed);
-    this.spacing = 0.02;
+    this.spacing = 0.1;
     this.amp = props.amp || 1;
     this.dir = Math.pow(-1, props.amp * 10);
     this.colorsUpdated = false;
@@ -31,28 +31,24 @@ export default class ParametricPatterns {
     this.colorsUpdated = true;
     this.fillColors = [];
     for (let i = 0; i < this.numLines; i++) {
-      const col = [
-        this.p5.map(i, 0, this.numLines, this.color2[0], this.color[0]),
-        this.p5.map(i, 0, this.numLines, this.color2[1], this.color[1]),
-        this.p5.map(i, 0, this.numLines, this.color2[2], this.color[2]),
-      ];
-      this.fillColors.push(this.p5.color(...col, this.fillOpacity));
+      const r = this.p5.map(i, 0, this.numLines, this.color2[0], this.color[0])
+      const g = this.p5.map(i, 0, this.numLines, this.color2[1], this.color[1])
+      const b = this.p5.map(i, 0, this.numLines, this.color2[2], this.color[2])
+      this.fillColors.push(this.p5.color(r, g, b, this.fillOpacity));
     }
   }
 
   reset() {
     this.t = Math.floor(this.p5.random(8)) * this.p5.PI / 2;
     this.randVar = this.p5.random(0, this.seed);
-    this.x2 = this.util.generateParametricEqn(this.width / 4);
-    this.y2 = this.util.generateParametricEqn(this.height / 4);
+    this.x2 = this.util.generateParametricEqn(this.width/2);
+    this.y2 = this.util.generateParametricEqn(this.height/2);
 
     this.genFillColors();
   }
 
   draw() {
-    if (this.fillColors.length < 1 || !this.colorsUpdated) {
-    }
-    this.genFillColors();
+    // this.genFillColors();
     const debug = false;
     this.p5.push();
     this.p5.strokeWeight(this.strokeWeight);
@@ -62,15 +58,13 @@ export default class ParametricPatterns {
     this.p5.translate(this.props.x + this.padding / 2, this.props.y + this.padding / 2);
     this.p5.translate(this.width / 2, this.height / 2);
     const count = this.numLines * this.spacing;
-    let n = 0;
+
+    const color = this.fillColors[0];
+    this.p5.fill(0, 0, 0, 0);
+    this.p5.stroke(color);
     for (let i = 0; i < count; i += this.spacing) {
       const t = this.t + i;
-      const color = this.fillColors[n];
-      // this.p5.fill(0, 0,0,0);
 
-      if (this.strokeOpacity > 0) {
-        this.p5.stroke(color, this.p5.map(i, 0, count, 0, this.strokeOpacity));
-      }
       const points = [this.cx1(t), this.cy1(t), this.x1(t), this.y1(t), this.x2(t), this.y2(t), this.cx2(t), this.cy2(t)]
         .map(pt => pt * this.amp);
       this.p5.curve(...points);
@@ -82,8 +76,6 @@ export default class ParametricPatterns {
         this.p5.ellipse(this.x2(t), this.y2(t), 10, 10);
         this.p5.ellipse(this.cx2(t), this.cy2(t), 5, 5);
       }
-
-      n++;
     }
     this.p5.pop();
   }
