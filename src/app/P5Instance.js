@@ -17,13 +17,13 @@ const sketch = (p) => {
   }
 
   function array1(x, y) {
-    const ringSize = 60;
-    if (x < width/2 && p.dist(x, y, 0, 0) % (ringSize * 2) < ringSize)
+    const ringSize = 55;
+    if (x <= width/2 && p.dist(x, y, 0, 0) % (ringSize * 2) < ringSize)
     {
       p.text('O', x, y);
     }
 
-    if (x > width/2 && p.dist(x, y, width, height) % (ringSize * 2) < ringSize)
+    if (x > width/2 && p.dist(x, y, width, height) % (ringSize * 2) > ringSize)
     {
       p.text('+', x, y);
     }
@@ -31,7 +31,7 @@ const sketch = (p) => {
 
   function array2(x, y) {
     if (x > p.width / 2) {
-      p.text('-', x, y);
+      p.text("'", x, y);
     } else {
       p.text('.', x, y);
     }
